@@ -61,20 +61,22 @@ window.onload = () => {
       object.cy = ty;
 
       for (let i=0; i<nballs; i++) {
-	const object = state.objects[i]
+	const object = state.objects[i];
 	const self = object.self;
 	if (i < dragIndex) {
 	  const x1 = Math.abs(i - dragIndex);
-	  const x2 = Math.abs(0 - dragIndex);
-	  const r = 1 - x1/x2;
-	  const sy = ty * r * r;
+	  //const x2 = Math.abs(0 - dragIndex);
+	  //const r = 1 - x1/x2;
+	  //const sy = ty * r * r;
+	  const sy = ty / Math.pow(1.2, x1);
 	  self.style.transform = `translateY(${sy}px)`;
 	  object.cy = sy;
 	} else if (i > dragIndex) {
 	  const x1 = Math.abs(i - dragIndex);
-	  const x2 = Math.abs(nballs - dragIndex - 1);
-	  const r = 1 - x1/x2;
-	  const sy = ty * r * r;
+	  //const x2 = Math.abs(nballs - dragIndex - 1);
+	  //const r = 1 - x1/x2;
+	  //const sy = ty * r * r;
+	  const sy = ty / Math.pow(1.2, x1);
 	  self.style.transform = `translateY(${sy}px)`;
 	  object.cy = sy;
 	}
