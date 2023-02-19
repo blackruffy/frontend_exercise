@@ -1,0 +1,25 @@
+
+#container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#object1 {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    z-index: 2;
+}
+
+
+#object2 {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: green;
+    z-index: 1;
+}
+

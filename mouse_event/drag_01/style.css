@@ -1,0 +1,15 @@
+
+#container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#object {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+
