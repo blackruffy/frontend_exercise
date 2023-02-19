@@ -1,0 +1,10 @@
+#button {
+    
+}
+
+#object {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    transition: transform 1s ease 0s;
+}
