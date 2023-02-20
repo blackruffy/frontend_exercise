@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+    overflow: hidden;
+}
+
+#button-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 12px;
+}
+
+#start-button {
+    padding: 12px;
+    background-color: royalblue;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+#container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-cont {
+    position: relative;
+    overflow: hidden;
+}
+
+.text {
+    position: relative;
+    font-size: 72px;
+    font-weight: bold;
+}
+
+#text1 {
+    top: 40px;
+}
+
+#text2 {
+    top: -48px;
+}
