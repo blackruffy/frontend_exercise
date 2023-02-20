@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+#button-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 12px;
+}
+
+#start-button {
+    padding: 12px;
+    background-color: royalblue;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+#container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #666666;
+}
+
+#circle4 {
+    position: absolute;
+    left: calc((100vw - 100px)/2);
+    top: calc((100vh - 100px)/2);
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    background-color: tomato;
+}
+
+#circle3 {
+    position: absolute;
+    left: calc((100vw - 200px)/2);
+    top: calc((100vh - 200px)/2);
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    background-color: orange;
+}
+
+#circle2 {
+    position: absolute;
+    left: calc((100vw - 300px)/2);
+    top: calc((100vh - 300px)/2);
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    background-color: yellow;
+}
+
+#circle1 {
+    position: absolute;
+    left: calc((100vw - 400px)/2);
+    top: calc((100vh - 400px)/2);
+    width: 400px;
+    height: 400px;
+    border-radius: 200px;
+    background-color: white;
+}
