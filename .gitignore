@@ -1,2 +1,8 @@
 /.log/
 /node_modules/
+target
+.bloop
+.metals
+.bsp
+.vscode
+metals.sbt
