@@ -1,4 +1,6 @@
-const posts = [
+const BlogData = {
+
+  posts: [
    {
       "id":55,
       "title":"passion",
@@ -3134,4 +3136,7 @@ const posts = [
          "personality"
       ]
    }
-];
+  ],
+};
+
+  
