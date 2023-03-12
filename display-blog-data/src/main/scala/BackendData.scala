@@ -1,6 +1,7 @@
 package com.sustenage.menta.fontend.exercise.display.blog.data;
 
 import scala.scalajs.js
+import scala.scalajs.js.annotation.JSGlobal
 
 val titles = js.Array(
   "media",
@@ -148,7 +149,14 @@ trait Post extends js.Object:
   val body: js.Array[String]
   val tags: js.Array[String]
 
-val posts: js.Array[Post] =
+trait PostJson extends js.Object:
+  val id: Int
+  val title: String
+  val date: String
+  val body: js.Array[String]
+  val tags: js.Array[String]
+
+def genPosts: js.Array[Post] =
   js.WrappedArray.range(0, 100).map(i => randomPost(i)).sortWith { (a, b) =>
     a.date.getTime > b.date.getTime
   }
@@ -173,3 +181,9 @@ def randomPost(id: Int): Post = js.Dynamic
       .map(_ => randomItem(tags))
   )
   .asInstanceOf[Post]
+
+@js.native
+@JSGlobal
+object BlogData extends js.Object {
+  val posts: js.Array[PostJson] = js.native
+}

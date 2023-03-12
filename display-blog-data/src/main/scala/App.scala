@@ -10,7 +10,7 @@ enum PageType:
   case BlogPost
   case BlogData
 
-def renderPosts(posts: js.Array[Post]) =
+def renderPosts(posts: js.Array[PostJson]) =
   div(
     posts.map { post =>
       div(
@@ -20,7 +20,7 @@ def renderPosts(posts: js.Array[Post]) =
             post.title.toUpperCase
           )
         ),
-        div(post.date.toISOString)
+        div(new js.Date(post.date).toISOString)
       )
     }
   )
@@ -33,7 +33,7 @@ def blogListPage(offset: Int, size: Int) = div(
   hr(width := "100%"),
   div(s"${offset} - ${offset + size}"),
   div(
-    posts.slice(offset, offset + size) |> renderPosts
+    BlogData.posts.slice(offset, offset + size) |> renderPosts
   ),
   hr(width := "100%"),
   div(
@@ -43,7 +43,7 @@ def blogListPage(offset: Int, size: Int) = div(
     alignItems := "center",
     a(
       paddingRight := "12px",
-      href := s"${dom.window.location.pathname}?offset=${offset + size}&size=${size}",
+      href := s"${dom.window.location.pathname}?offset=${offset - size}&size=${size}",
       "Back"
     ),
     a(
@@ -65,9 +65,10 @@ def blogListByTag(tag: String) = div(
   alignItems := "center",
   h1(s"Blog Posts In ${tag}"),
   hr(width := "100%"),
-  posts.filter(_.tags.contains(tag)) |> renderPosts,
+  BlogData.posts.filter(_.tags.contains(tag)) |> renderPosts,
   hr(width := "100%"),
   div(
+    padding := "8px",
     a(
       paddingLeft := "12px",
       href := s"${dom.window.location.pathname}",
@@ -76,11 +77,11 @@ def blogListByTag(tag: String) = div(
   )
 )
 
-def blogPostPage(id: Int) = posts.find(_.id == id) match
+def blogPostPage(id: Int) = BlogData.posts.find(_.id == id) match
   case None => invalidParamPage
   case Some(post) =>
     div(
-      h1(post.title),
+      h1(padding := "8px", post.title),
       div(post.tags.map { tag =>
         span(
           padding := "8px",
@@ -91,10 +92,11 @@ def blogPostPage(id: Int) = posts.find(_.id == id) match
         )
       }),
       hr(width := "100%"),
-      div(post.date.toISOString),
-      div(post.body.map { line => p(line) }),
+      div(padding := "8px", new js.Date(post.date).toISOString),
+      div(padding := "8px", post.body.map { line => p(line) }),
       hr(width := "100%"),
       div(
+        padding := "8px",
         a(
           paddingLeft := "12px",
           href := s"${dom.window.location.pathname}",
@@ -141,7 +143,7 @@ def renderApp =
           case Some(id) => blogPostPage(id.toInt)
 
       case PageType.BlogData =>
-        div(js.JSON.stringify(posts))
+        div(js.JSON.stringify(BlogData.posts))
 
     }
 
