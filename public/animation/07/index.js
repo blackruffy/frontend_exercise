@@ -3,6 +3,7 @@ window.onload = () => {
     const state = {
         isOn: 0,
     };
+  
     const xs = Array.from(document.getElementsByClassName(`text-cont`));
     xs.forEach((x, i) => {
         x.style.transform = `translateX(${i === 0 ? -100 : 100}vw)`;

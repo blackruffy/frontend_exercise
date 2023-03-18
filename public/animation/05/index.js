@@ -12,8 +12,9 @@ window.onload = () => {
   const body = document.body;
   const time = document.getElementById('time');
   const container = document.getElementById('container');
-  
-  const nballs = 21;
+
+  const nballs = Math.floor(window.innerWidth * 20/1000)
+  //const nballs = 21;
   
   time.innerText = `0ms`;
   
@@ -35,8 +36,8 @@ window.onload = () => {
     self.style.height = `${radius}px`;
     self.style.borderRadius = `${radius/2}px`;
     container.appendChild(self);
-    
-    self.addEventListener('mousedown', (e) => {
+
+    function start(e) {
       clearInterval(state.interval);
       for (let i=0; i<nballs; i++) {
 	const object = state.objects[i];
@@ -45,12 +46,14 @@ window.onload = () => {
       
       state.dragIndex = i;
       object.y = e.clientY;
-    });
+    }
+    
+    self.addEventListener('mousedown', start);
+    self.addEventListener('touchstart', e => start(e.touches[0]));
         
   }
 
-  
-  body.addEventListener('mousemove', (e) => {
+  function onMove(e) {
     const dragIndex = state.dragIndex;
     if (dragIndex !== null) {
       const object = state.objects[dragIndex];
@@ -82,9 +85,9 @@ window.onload = () => {
 	}
       }
     }
-  });
+  }
 
-  body.addEventListener('mouseup', (e) => {
+  function onEnd(e) {
     if (state.dragIndex !== null) {
       const framerate = 10;
       const period = 1000;
@@ -128,7 +131,13 @@ window.onload = () => {
 	t += framerate;
       }, framerate);
     }
-  });
+  }
+  
+  body.addEventListener('mousemove', onMove);
+  body.addEventListener('touchmove', (e) => onMove(e.touches[0]));
+
+  body.addEventListener('mouseup', onEnd);
+  body.addEventListener('touchend', onEnd);
 
   
 };

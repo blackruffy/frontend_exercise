@@ -1,4 +1,20 @@
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+    overflow: hidden;
+}
+
 #container {
     position: relative;
     width: 100%;
