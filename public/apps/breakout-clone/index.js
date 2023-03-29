@@ -51,7 +51,7 @@ function newEnv(ctx) {
 
   const disc = {};
   disc.width = block.width;
-  disc.height = block.height / 3;
+  disc.height = 10; // block.height / 3;
   disc.color = `#88EE88`;
   disc.speed = 15;
   self.disc = disc;
