@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+#button {
+    
+}
+
+#object {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+}
+
+@keyframes spin {
+    0% {
+	transform: rotate(0deg)
+    }
+
+    100% {
+	transform: rotate(360deg)
+    }
+}
