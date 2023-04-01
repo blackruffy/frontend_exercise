@@ -2,8 +2,8 @@
     var rotateRange = 1000;
     var stayRange = 2000;
     var scaleRange = 8000;
-    var ballRange = stayRange + scaleRange;
     var scaleRate = 0.01;
+    var ballRange = stayRange + scaleRange;
     var state = {
         screens: []
     };
@@ -22,7 +22,7 @@
     function newScrollScreen() {
         var self = div();
         setStyle(self, {
-            height: "calc(100vh * 50)"
+            height: "calc(100vh + ".concat((rotateRange + stayRange + scaleRange) * 4, "px)")
         });
         return self;
     }

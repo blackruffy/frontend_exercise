@@ -2,8 +2,8 @@
   const rotateRange = 1000;
   const stayRange = 2000;
   const scaleRange = 8000;
-  const ballRange = stayRange + scaleRange;
   const scaleRate = 0.01;
+  const ballRange = stayRange + scaleRange;
 
   type State = Readonly<{
     screens: Array<
@@ -43,7 +43,7 @@
   function newScrollScreen() {
     const self = div();
     setStyle(self, {
-      height: `calc(100vh * 50)`,
+      height: `calc(100vh + ${(rotateRange + stayRange + scaleRange) * 4}px)`,
     });
 
     return self;
