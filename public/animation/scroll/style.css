@@ -7,3 +7,18 @@ body {
     margin: 0px;
     font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
 }
+
+
+@keyframes flash {
+    0% {
+	transform: scale(1)
+    }
+
+    50% {
+	transform: scale(1.1)
+    }
+
+    100% {
+	transform: scale(1)
+    }
+}

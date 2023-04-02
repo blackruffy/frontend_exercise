@@ -122,6 +122,7 @@
       alignItems: `center`,
       transform: `rotate(${angle}deg)`,
       transformOrigin: `bottom left`,
+      overflow: `hidden`,
     });
 
     const text = newText(message);
@@ -153,7 +154,8 @@
     const colorIndex = Math.round(Math.random() * colors.length);
     const left = Math.round(Math.random() * window.innerWidth);
     const top = Math.round(
-      Math.random() * (window.innerHeight + stayRange + scaleRange)
+      Math.random() *
+        (window.innerHeight + stayRange + scaleRange + rotateRange)
     );
     setStyle(self, {
       position: `absolute`,
@@ -175,6 +177,7 @@
       fontSize: `3rem`,
       fontWeight: `bold`,
       color: `white`,
+      transform: `scale(${scaleRange * scaleRate + 1})`,
     });
 
     self.append(text(value));
@@ -194,19 +197,30 @@
       flexDirection: `column`,
       justifyContent: `flex-end`,
       alignItems: `center`,
+    });
+    self.append(snackText());
+    return self;
+  }
+
+  function snackText() {
+    const self = div();
+    setStyle(self, {
       color: `white`,
       fontSize: `2rem`,
       fontWeight: `bold`,
       filter: `drop-shadow(0px 0px 2px black)`,
+      animation: `flash 1s ease 0s infinite`,
     });
-    self.append(text(`SCROLL DOWN!`));
+    self.append(text(`↓SCROLL DOWN↓`));
     return self;
   }
 
   function onScroll(index: number) {
     const screen = state.screens[index];
     const startY =
-      index === 0 ? 0 : index * scaleRange + (index - 1) * rotateRange;
+      index === 0
+        ? 0
+        : index * (scaleRange + stayRange) + (index - 1) * rotateRange;
     const scrollY = window.scrollY;
 
     if (screen !== null) {
@@ -223,18 +237,15 @@
       }
 
       const ballY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
-      if (ballY > 0 && ballY < ballRange) {
+      if (ballY > 0 && ballY < ballRange + rotateRange) {
         setStyle(screen.balls, {
           transform: `translateY(${-ballY}px)`,
         });
       }
-      const scaleY =
-        window.scrollY -
-        startY -
-        (index === 0 ? stayRange : rotateRange + stayRange);
+      const scaleY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
       if (scaleY > 0 && scaleY < scaleRange) {
         setStyle(screen.text, {
-          transform: `scale(${scaleY * scaleRate + 1})`,
+          transform: `scale(${(scaleRange - scaleY) * scaleRate + 1})`,
         });
       }
     }

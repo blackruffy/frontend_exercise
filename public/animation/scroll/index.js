@@ -82,7 +82,8 @@
             justifyContent: "center",
             alignItems: "center",
             transform: "rotate(".concat(angle, "deg)"),
-            transformOrigin: "bottom left"
+            transformOrigin: "bottom left",
+            overflow: "hidden"
         });
         var text = newText(message);
         var balls = newBalls(ballColors);
@@ -109,7 +110,8 @@
         var radius = Math.round(Math.random() * 60 + 15);
         var colorIndex = Math.round(Math.random() * colors.length);
         var left = Math.round(Math.random() * window.innerWidth);
-        var top = Math.round(Math.random() * (window.innerHeight + stayRange + scaleRange));
+        var top = Math.round(Math.random() *
+            (window.innerHeight + stayRange + scaleRange + rotateRange));
         setStyle(self, {
             position: "absolute",
             left: "".concat(left, "px"),
@@ -127,7 +129,8 @@
             position: "relative",
             fontSize: "3rem",
             fontWeight: "bold",
-            color: "white"
+            color: "white",
+            transform: "scale(".concat(scaleRange * scaleRate + 1, ")")
         });
         self.append(text(value));
         return self;
@@ -143,18 +146,28 @@
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            alignItems: "center",
+            alignItems: "center"
+        });
+        self.append(snackText());
+        return self;
+    }
+    function snackText() {
+        var self = div();
+        setStyle(self, {
             color: "white",
             fontSize: "2rem",
             fontWeight: "bold",
-            filter: "drop-shadow(0px 0px 2px black)"
+            filter: "drop-shadow(0px 0px 2px black)",
+            animation: "flash 1s ease 0s infinite"
         });
-        self.append(text("SCROLL DOWN!"));
+        self.append(text("\u2193SCROLL DOWN\u2193"));
         return self;
     }
     function onScroll(index) {
         var screen = state.screens[index];
-        var startY = index === 0 ? 0 : index * scaleRange + (index - 1) * rotateRange;
+        var startY = index === 0
+            ? 0
+            : index * (scaleRange + stayRange) + (index - 1) * rotateRange;
         var scrollY = window.scrollY;
         if (screen !== null) {
             if (index > 0) {
@@ -168,17 +181,15 @@
                 });
             }
             var ballY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
-            if (ballY > 0 && ballY < ballRange) {
+            if (ballY > 0 && ballY < ballRange + rotateRange) {
                 setStyle(screen.balls, {
                     transform: "translateY(".concat(-ballY, "px)")
                 });
             }
-            var scaleY = window.scrollY -
-                startY -
-                (index === 0 ? stayRange : rotateRange + stayRange);
+            var scaleY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
             if (scaleY > 0 && scaleY < scaleRange) {
                 setStyle(screen.text, {
-                    transform: "scale(".concat(scaleY * scaleRate + 1, ")")
+                    transform: "scale(".concat((scaleRange - scaleY) * scaleRate + 1, ")")
                 });
             }
         }
