@@ -13,6 +13,8 @@ body {
     padding: 0px;
     font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
     overflow: hidden;
+    background-color: #333333;
+    color: white;
 }
 
 #container {
@@ -26,5 +28,17 @@ body {
 
 .object {
     position: relative;
-    background-color: blue;
+    border: 1px solid lightblue;
+    background-color: dodgerblue;
+}
+
+#message {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
