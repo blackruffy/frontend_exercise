@@ -1,14 +1,15 @@
-(function () {
-    var rotateRange = 1000;
-    var stayRange = 2000;
-    var scaleRange = 8000;
-    var scaleRate = 0.01;
-    var ballRange = stayRange + scaleRange;
-    var state = {
-        screens: []
+"use strict";
+(() => {
+    const rotateRange = 1000;
+    const stayRange = 2000;
+    const scaleRange = 8000;
+    const scaleRate = 0.01;
+    const ballRange = stayRange + scaleRange;
+    const state = {
+        screens: [],
     };
     function setStyle(self, style) {
-        Object.keys(style).forEach(function (key) { return (self.style[key] = style[key]); });
+        Object.keys(style).forEach((key) => (self.style[key] = style[key]));
     }
     function tag(name) {
         return document.createElement(name);
@@ -20,186 +21,185 @@
         return document.createTextNode(value);
     }
     function newScrollScreen() {
-        var self = div();
+        const self = div();
         setStyle(self, {
-            height: "calc(100vh + ".concat((rotateRange + stayRange + scaleRange) * 4, "px)")
+            height: `calc(100vh + ${(rotateRange + stayRange + scaleRange) * 4}px)`,
         });
         return self;
     }
     function newContainer() {
-        var self = div();
+        const self = div();
         setStyle(self, {
-            position: "fixed",
-            top: "0px",
-            left: "0px",
-            width: "100vw",
-            height: "100vh"
+            position: `fixed`,
+            top: `0px`,
+            left: `0px`,
+            width: `100vw`,
+            height: `100vh`,
         });
         self.append(newScreen({
             message: "JavaScript",
-            ballColors: ["pink", "orange", "tomato", "hotpink", "violet"],
-            backgroundColor: "orangered"
+            ballColors: [`pink`, `orange`, `tomato`, `hotpink`, `violet`],
+            backgroundColor: `orangered`,
         }), newScreen({
             message: "TypeScript",
             ballColors: [
-                "darkseagreen",
-                "teal",
-                "darkgreen",
-                "palegreen",
-                "yellowgreen",
+                `darkseagreen`,
+                `teal`,
+                `darkgreen`,
+                `palegreen`,
+                `yellowgreen`,
             ],
-            backgroundColor: "green"
+            backgroundColor: `green`,
         }), newScreen({
             message: "CoffeeScript",
-            ballColors: ["yellow", "khaki", "peru", "wheat", "gold"],
-            backgroundColor: "orange"
+            ballColors: [`yellow`, `khaki`, `peru`, `wheat`, `gold`],
+            backgroundColor: `orange`,
         }), newScreen({
             message: "LiveScript",
             ballColors: [
-                "royalblue",
-                "lightskyblue",
-                "darkblue",
-                "lightblue",
-                "turquoise",
+                `royalblue`,
+                `lightskyblue`,
+                `darkblue`,
+                `lightblue`,
+                `turquoise`,
             ],
-            backgroundColor: "blue"
+            backgroundColor: `blue`,
         }), snack());
         return self;
     }
-    function newScreen(_a) {
-        var message = _a.message, ballColors = _a.ballColors, backgroundColor = _a.backgroundColor;
-        var self = div();
-        var angle = state.screens.length === 0 ? 0 : 90;
+    function newScreen({ message, ballColors, backgroundColor, }) {
+        const self = div();
+        const angle = state.screens.length === 0 ? 0 : 90;
         setStyle(self, {
-            position: "fixed",
-            top: "0px",
-            left: "0px",
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: backgroundColor,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            transform: "rotate(".concat(angle, "deg)"),
-            transformOrigin: "bottom left",
-            overflow: "hidden"
+            position: `fixed`,
+            top: `0px`,
+            left: `0px`,
+            width: `100vw`,
+            height: `100vh`,
+            backgroundColor,
+            display: `flex`,
+            flexDirection: `column`,
+            justifyContent: `center`,
+            alignItems: `center`,
+            transform: `rotate(${angle}deg)`,
+            transformOrigin: `bottom left`,
+            overflow: `hidden`,
         });
-        var text = newText(message);
-        var balls = newBalls(ballColors);
+        const text = newText(message);
+        const balls = newBalls(ballColors);
         state.screens.push({
             main: self,
-            balls: balls,
-            text: text
+            balls,
+            text,
         });
         self.append(balls, text);
         return self;
     }
     function newBalls(colors) {
-        var self = div();
+        const self = div();
         setStyle(self, {
             position: "absolute",
-            top: "0px",
-            left: "0px"
+            top: `0px`,
+            left: `0px`,
         });
-        self.append.apply(self, Array.from({ length: 100 }).map(function () { return newBall(colors); }));
+        self.append(...Array.from({ length: 100 }).map(() => newBall(colors)));
         return self;
     }
     function newBall(colors) {
-        var self = div();
-        var radius = Math.round(Math.random() * 60 + 15);
-        var colorIndex = Math.round(Math.random() * colors.length);
-        var left = Math.round(Math.random() * window.innerWidth);
-        var top = Math.round(Math.random() *
+        const self = div();
+        const radius = Math.round(Math.random() * 60 + 15);
+        const colorIndex = Math.round(Math.random() * colors.length);
+        const left = Math.round(Math.random() * window.innerWidth);
+        const top = Math.round(Math.random() *
             (window.innerHeight + stayRange + scaleRange + rotateRange));
         setStyle(self, {
-            position: "absolute",
-            left: "".concat(left, "px"),
-            top: "".concat(top, "px"),
-            width: "".concat(radius * 2, "px"),
-            height: "".concat(radius * 2, "px"),
-            borderRadius: "".concat(radius, "px"),
-            backgroundColor: "".concat(colors[colorIndex])
+            position: `absolute`,
+            left: `${left}px`,
+            top: `${top}px`,
+            width: `${radius * 2}px`,
+            height: `${radius * 2}px`,
+            borderRadius: `${radius}px`,
+            backgroundColor: `${colors[colorIndex]}`,
         });
         return self;
     }
     function newText(value) {
-        var self = div();
+        const self = div();
         setStyle(self, {
-            position: "relative",
-            fontSize: "3rem",
-            fontWeight: "bold",
-            color: "white",
-            transform: "scale(".concat(scaleRange * scaleRate + 1, ")")
+            position: `relative`,
+            fontSize: `3rem`,
+            fontWeight: `bold`,
+            color: `white`,
+            transform: `scale(${scaleRange * scaleRate + 1})`,
         });
         self.append(text(value));
         return self;
     }
     function snack() {
-        var self = div();
+        const self = div();
         setStyle(self, {
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            alignItems: "center"
+            position: `absolute`,
+            top: `0px`,
+            left: `0px`,
+            width: `100vw`,
+            height: `100vh`,
+            display: `flex`,
+            flexDirection: `column`,
+            justifyContent: `flex-end`,
+            alignItems: `center`,
         });
         self.append(snackText());
         return self;
     }
     function snackText() {
-        var self = div();
+        const self = div();
         setStyle(self, {
-            color: "white",
-            fontSize: "2rem",
-            fontWeight: "bold",
-            filter: "drop-shadow(0px 0px 2px black)",
-            animation: "flash 1s ease 0s infinite"
+            color: `white`,
+            fontSize: `2rem`,
+            fontWeight: `bold`,
+            filter: `drop-shadow(0px 0px 2px black)`,
+            animation: `flash 1s ease 0s infinite`,
         });
-        self.append(text("\u2193SCROLL DOWN\u2193"));
+        self.append(text(`↓SCROLL DOWN↓`));
         return self;
     }
     function onScroll(index) {
-        var screen = state.screens[index];
-        var startY = index === 0
+        const screen = state.screens[index];
+        const startY = index === 0
             ? 0
             : index * (scaleRange + stayRange) + (index - 1) * rotateRange;
-        var scrollY = window.scrollY;
+        const scrollY = window.scrollY;
         if (screen !== null) {
             if (index > 0) {
-                var angle = scrollY < startY
+                const angle = scrollY < startY
                     ? 90
                     : scrollY > startY + rotateRange
                         ? 0
                         : 90 - ((scrollY - startY) * 90) / rotateRange;
                 setStyle(screen.main, {
-                    transform: "rotate(".concat(angle, "deg)")
+                    transform: `rotate(${angle}deg)`,
                 });
             }
-            var ballY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
+            const ballY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
             if (ballY > 0 && ballY < ballRange + rotateRange) {
                 setStyle(screen.balls, {
-                    transform: "translateY(".concat(-ballY, "px)")
+                    transform: `translateY(${-ballY}px)`,
                 });
             }
-            var scaleY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
+            const scaleY = window.scrollY - startY - (index === 0 ? 0 : rotateRange);
             if (scaleY > 0 && scaleY < scaleRange) {
                 setStyle(screen.text, {
-                    transform: "scale(".concat((scaleRange - scaleY) * scaleRate + 1, ")")
+                    transform: `scale(${(scaleRange - scaleY) * scaleRate + 1})`,
                 });
             }
         }
     }
-    window.onload = function () {
+    window.onload = () => {
         setStyle(document.body, {
-            position: "relative"
+            position: `relative`,
         });
-        window.addEventListener("scroll", function () {
-            state.screens.forEach(function (_, i) { return onScroll(i); });
+        window.addEventListener("scroll", () => {
+            state.screens.forEach((_, i) => onScroll(i));
         });
         document.body.append(newScrollScreen(), newContainer());
     };

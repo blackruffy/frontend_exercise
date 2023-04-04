@@ -1,70 +1,71 @@
+"use strict";
 function setStyle(self, style) {
-    Object.keys(style).forEach(function (key) { return (self.style[key] = style[key]); });
+    Object.keys(style).forEach((key) => (self.style[key] = style[key]));
 }
 function newDate(now) {
-    var self = document.createElement("div");
+    const self = document.createElement("div");
     setStyle(self, {
-        fontSize: "2rem",
-        fontWeight: "bold"
+        fontSize: `2rem`,
+        fontWeight: `bold`,
     });
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
-    self.append(document.createTextNode("".concat(year, "\u5E74").concat(month, "\u6708").concat(day, "\u65E5")));
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    self.append(document.createTextNode(`${year}年${month}月${day}日`));
     return self;
 }
 function newTime(now) {
-    var self = document.createElement("div");
+    const self = document.createElement("div");
     setStyle(self, {
         display: "flex",
         flexDirection: "row",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
     });
     self.append(newHourMin(now), newSec(now));
     return self;
 }
 function newHourMin(now) {
-    var self = document.createElement("div");
+    const self = document.createElement("div");
     setStyle(self, {
-        fontSize: "3rem",
-        fontWeight: "bold"
+        fontSize: `3rem`,
+        fontWeight: `bold`,
     });
-    var hours = now.getHours().toString().padStart(2, "0");
-    var mins = now.getMinutes().toString().padStart(2, "0");
-    self.append(document.createTextNode("".concat(hours, "\u6642").concat(mins, "\u5206")));
+    const hours = now.getHours().toString().padStart(2, "0");
+    const mins = now.getMinutes().toString().padStart(2, "0");
+    self.append(document.createTextNode(`${hours}時${mins}分`));
     return self;
 }
 function newSec(now) {
-    var self = document.createElement("div");
+    const self = document.createElement("div");
     setStyle(self, {
-        fontSize: "2rem",
-        fontWeight: "bold"
+        fontSize: `2rem`,
+        fontWeight: `bold`,
     });
-    var sec = now.getSeconds().toString().padStart(2, "0");
-    self.append(document.createTextNode("".concat(sec, "\u79D2")));
+    const sec = now.getSeconds().toString().padStart(2, "0");
+    self.append(document.createTextNode(`${sec}秒`));
     return self;
 }
 function newContainer() {
-    var now = new Date();
-    var self = document.createElement("div");
+    const now = new Date();
+    const self = document.createElement("div");
     self.append(newDate(now), newTime(now));
     return self;
 }
-window.onload = function () {
-    var state = {
-        cont: newContainer()
+window.onload = () => {
+    const state = {
+        cont: newContainer(),
     };
-    var body = document.body;
+    const body = document.body;
     setStyle(body, {
-        width: "100vw",
-        height: "100vh",
+        width: `100vw`,
+        height: `100vh`,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     });
     body.appendChild(state.cont);
-    setInterval(function () {
+    setInterval(() => {
         body.removeChild(state.cont);
         state.cont = newContainer();
         body.appendChild(state.cont);
